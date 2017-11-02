@@ -1,0 +1,69 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /
+  static_files: website/index.html
+  upload: website/index\.html
+  secure: always
+
+- url: /(.*\.html)
+  mime_type: text/html
+  static_files: website/\1
+  upload: website/(.*\.html)
+  secure: always
+
+- url: /service-worker.js
+  static_files: website/service-worker.js
+  upload: website/service-worker\.js
+  secure: always
+  expiration: 1m
+
+- url: /(.*\.html)
+  mime_type: text/html
+  static_files: website/\1
+  upload: (.*\.html)
+  secure: always
+
+- url: /(.*\.json)
+  mime_type: application/json
+  static_files: website/\1
+  upload: (.*\.json)
+  secure: always
+
+- url: /favicon\.ico
+  static_files: website/favicon.ico
+  upload: website/favicon\.ico
+  secure: always
+
+- url: /css
+  static_dir: website/css
+  secure: always
+
+- url: /js
+  static_dir: website/js
+  secure: always
+  http_headers:
+    Access-Control-Allow-Origin: "*"
+
+- url: /img/(.*\.(gif|png|jpg))$
+  static_files: website/img/\1
+  upload: website/img/.*\.(gif|png|jpg)$
+  secure: always
+
+builtins:
+- appstats: on
+
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+- ^(.*/)?\.libsvm$
+- ^(.*/)?\.jar$
+- .*\bARCHIVE\b.*
+- .*\bIcon\b.*
+- ^(.*/)?.*\.yaml$
+- ^(.*/)?.*\.md$

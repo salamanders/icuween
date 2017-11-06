@@ -23,7 +23,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/?homescreen=1",
+  "start_url": "/",
   "scope": "/",
   "display": "fullscreen",
   "background_color": "#000000",

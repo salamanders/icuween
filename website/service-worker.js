@@ -42,11 +42,11 @@ addEventListener('install', event => {
 
     caches.open(CURRENT_CACHE)
       .then(cache => cache.addAll(URLS_TO_CATCH))
+      .then(()=>{ console.info(`All ${URLS_TO_CATCH.length} URLs cached.`);})
       .then(() => self.skipWaiting());
   });
 });
 
-// TODO: Uncomment when ready for any offline access
 self.addEventListener('activate', event => {
   console.log('Service Worker: activated.');
   event.waitUntil(self.clients.claim());
@@ -62,7 +62,7 @@ self.addEventListener('fetch', event => {
         console.info('Service Worker: Cache hit.');
         return response;
       }
-      console.info('Service Worker: Cache miss.');
+      console.warn('Service Worker: Cache miss.');
       return fetch(event.request).then(response => {
         console.info('Service Worker: Caching after miss.');
         cache.put(event.request, response.clone());
@@ -71,6 +71,5 @@ self.addEventListener('fetch', event => {
     }))
   );
 });
-
 
 console.info('Service Worker: sw.js done.');

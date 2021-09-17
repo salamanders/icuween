@@ -10,8 +10,8 @@ Demonstrates:
 
 # Deploy
 
-gcloud app deploy -q --project icuween --version 1 --verbosity=info app.yaml
+gcloud app deploy -q --project eyeseeyouween --version 1 --verbosity=info app.yaml
 
 # Online Example
 
-https://icuween.appspot.com (best on mobile)
+https://eyeseeyouween.appspot.com (best on mobile)

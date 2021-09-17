@@ -1,6 +1,4 @@
-runtime: python27
-api_version: 1
-threadsafe: true
+runtime: python39
 
 handlers:
 - url: /
@@ -54,16 +52,3 @@ handlers:
 
 builtins:
 - appstats: on
-
-skip_files:
-- ^(.*/)?#.*#$
-- ^(.*/)?.*~$
-- ^(.*/)?.*\.py[co]$
-- ^(.*/)?.*/RCS/.*$
-- ^(.*/)?\..*$
-- ^(.*/)?\.libsvm$
-- ^(.*/)?\.jar$
-- .*\bARCHIVE\b.*
-- .*\bIcon\b.*
-- ^(.*/)?.*\.yaml$
-- ^(.*/)?.*\.md$

@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+/*jshint esversion: 8 */
 /*jshint worker:true */
 /*jshint unused:true */
 /*globals caches */

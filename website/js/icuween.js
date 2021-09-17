@@ -1,4 +1,4 @@
-/* jshint esversion: 6 */
+/* jshint esversion: 8 */
 /* jshint unused:true */
 /* jshint devel: true, browser: true */
 /* global THREE */
@@ -6,20 +6,20 @@
 // MatCap-style image rendered on a sphere
 // modify sphere UVs instead of using a ShaderMaterial
 
-var camera, scene, renderer, image, meshEye, meshLidRotated, tween;
+let camera, scene, renderer, image, meshEye, meshLidRotated, tween;
 
-var eyeTextures = [
+const eyeTextures = [
     'img/eye1.jpg',
     'img/eye2.jpg',
     'img/eye3.jpg',
     'img/eye4.jpg'
 ];
 
-let getRandomRange = (min, max) => {
+const getRandomRange = (min, max) => {
   return Math.random() * (max - min) + min;
 };
 
-let lookSomewhere = () => {
+const lookSomewhere = () => {
     // y = side side, +x = down
     tween = new TWEEN.Tween(meshEye.rotation)
         .to({ 
@@ -31,14 +31,14 @@ let lookSomewhere = () => {
     setTimeout(() => { lookSomewhere(); }, getRandomRange(200, 3000));
 };
 
-let onWindowResize = () => {
+const onWindowResize = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     console.log(`onWindowResize: camera.aspect=${camera.aspect}`)
     camera.updateProjectionMatrix();
     renderer.setSize( window.innerWidth, window.innerHeight );
 };
 
-let init = () => {
+const init = () => {
 
     if(document.documentElement.requestFullscreen) {
         console.log('Supports fullscreen request.');
@@ -60,28 +60,28 @@ let init = () => {
     scene.add(camera);
 
 /*
-    let controls = new THREE.OrbitControls(camera);
+    const controls = new THREE.OrbitControls(camera);
     controls.minDistance = 75;
     controls.maxDistance = 200;
     controls.enablePan = false;
 */
     scene.add(new THREE.AmbientLight(0xffffff, 0.2));
 
-    let light = new THREE.PointLight(0xffffff, 1);
+    const light = new THREE.PointLight(0xffffff, 1);
     camera.add(light);
 
     image = document.createElement('img');
-    let eyeTexture = eyeTextures[Math.floor(Math.random() * eyeTextures.length)];
+    const eyeTexture = eyeTextures[Math.floor(Math.random() * eyeTextures.length)];
     console.log(eyeTexture);
     image.src = eyeTexture;
 
     // document.body.appendChild(image);
-    let texture = new THREE.Texture(image);
+    const texture = new THREE.Texture(image);
     image.addEventListener('load', () => {
         texture.needsUpdate = true;
     });
 
-    let material = new THREE.MeshPhongMaterial({
+    const material = new THREE.MeshPhongMaterial({
         color: 0xffffff,
         specular: 0x050505,
         shininess: 50,
@@ -89,10 +89,10 @@ let init = () => {
     });
 
     // https://threejs.org/docs/#api/geometries/SphereGeometry
-    let geometry = new THREE.SphereGeometry(30, 24, 24);
+    const geometry = new THREE.SphereGeometry(30, 24, 24);
 
     // modify UVs to accommodate MatCap texture (I don't know what this means)
-    let faceVertexUvs = geometry.faceVertexUvs[0];
+    const faceVertexUvs = geometry.faceVertexUvs[0];
     for (let i = 0; i < faceVertexUvs.length; i++) {
         for (let j = 0; j < 3; j++) {
             faceVertexUvs[i][j].x = geometry.faces[i].vertexNormals[j].x * 0.5 + 0.5;
@@ -104,8 +104,8 @@ let init = () => {
     scene.add(meshEye);
 
     // Eyelid
-    let geometryLid = new THREE.SphereGeometry(30.6, 24, 24, (Math.PI * 2) * 0.25, (Math.PI * 2) * 0.80);
-    let meshLid = new THREE.Mesh(geometryLid, new THREE.MeshPhongMaterial({
+    const geometryLid = new THREE.SphereGeometry(30.6, 24, 24, (Math.PI * 2) * 0.25, (Math.PI * 2) * 0.80);
+    const meshLid = new THREE.Mesh(geometryLid, new THREE.MeshPhongMaterial({
         color: 0x111111,
         specular: 0x050505,
         shininess: 20
@@ -120,7 +120,7 @@ let init = () => {
     scene.add(meshLidRotated);
 };
 
-let animate = () => {
+const animate = () => {
     requestAnimationFrame(animate);
     TWEEN.update();
     renderer.render(scene, camera);

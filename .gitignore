@@ -232,3 +232,9 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/osx,linux,eclipse,windows,netbeans,intellij,appengine,sublimetext
+/.idea/.gitignore
+/.idea/icuween.iml
+/.idea/kotlinc.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml

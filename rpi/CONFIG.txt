@@ -1,0 +1,5 @@
+
+
+# Low res, always on
+hdmi_force_hotplug=1
+hdmi_mode=8

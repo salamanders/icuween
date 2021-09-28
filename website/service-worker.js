@@ -2,12 +2,13 @@
 /*jshint worker:true */
 /*jshint unused:true */
 /*globals caches */
-const VERSION = '005';
+const VERSION = '006';
 const CURRENT_CACHE = 'my-site-cache-v' + VERSION;
 
 
 // TODO: Uncomment when ready to pre-cache
 const URLS_TO_CATCH = [
+/*
   '/',
   '/index.html',
   '/manifest.json',
@@ -27,6 +28,7 @@ const URLS_TO_CATCH = [
   '/js/three.min.js',
   '/js/Tween.min.js',
   '/js/icuween.js'
+  */
 ];
 
 addEventListener('install', event => {
@@ -59,10 +61,10 @@ self.addEventListener('fetch', event => {
       ignoreSearch: true
     }).then(response => {
       if (response) {
-        console.info('Service Worker: Cache hit.');
+        console.info(`Service Worker: Cache hit on '${event.request.url}'`);
         return response;
       }
-      console.warn('Service Worker: Cache miss.');
+      console.warn(`Service Worker: Cache miss on '${event.request.url}'`);
       return fetch(event.request).then(response => {
         console.info('Service Worker: Caching after miss.');
         cache.put(event.request, response.clone());

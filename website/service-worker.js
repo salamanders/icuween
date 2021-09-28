@@ -33,19 +33,20 @@ const URLS_TO_CATCH = [
 
 addEventListener('install', event => {
   console.info('Service Worker: install');
-  event.waitUntil(() => {
+  event.waitUntil(async () => {
 
-    caches.keys()
-      .filter(cacheName => cacheName != CURRENT_CACHE)
-      .forEach(badCacheName => {
-        console.info(`Service Worker: deleting old cache ${badCacheName}`);
-        caches.delete(badCacheName);
-      });
+    for (const badCacheName of (await caches.keys())
+        .filter(cacheName => cacheName !== CURRENT_CACHE)) {
+      console.info(`Service Worker: deleting old cache ${badCacheName}`);
+      await caches.delete(badCacheName);
+    }
 
     caches.open(CURRENT_CACHE)
-      .then(cache => cache.addAll(URLS_TO_CATCH))
-      .then(()=>{ console.info(`All ${URLS_TO_CATCH.length} URLs cached.`);})
-      .then(() => self.skipWaiting());
+        .then(cache => cache.addAll(URLS_TO_CATCH))
+        .then(() => {
+          console.info(`All ${URLS_TO_CATCH.length} URLs cached.`);
+        })
+        .then(() => self.skipWaiting());
   });
 });
 

@@ -2,14 +2,7 @@
 /* jshint unused:true */
 /* jshint devel: true, browser: true */
 /* global THREE, onWindowResize, lookSomewhere, animate */
-/* globals renderer: true, scene:true, camera:true, image:true,eyeTextures:true, meshEye:true, meshLidRotated:true */
-
-const eyeTextures = [
-    'img/eye1.jpg',
-    'img/eye2.jpg',
-    'img/eye3.jpg',
-    'img/eye4.jpg'
-];
+/* globals renderer: true, scene:true, camera:true, image:true, meshEye:true, meshLidRotated:true */
 
 const init = () => {
 
@@ -32,21 +25,15 @@ const init = () => {
     camera.position.set(0, 0, 80);
     scene.add(camera);
 
-    /*
-        const controls = new THREE.OrbitControls(camera);
-        controls.minDistance = 75;
-        controls.maxDistance = 200;
-        controls.enablePan = false;
-    */
-    scene.add(new THREE.AmbientLight(0xffffff, 0.2));
+    scene.add(new THREE.AmbientLight(0xffffff, 1.0));
 
+    /*
     const light = new THREE.PointLight(0xffffff, 1);
     camera.add(light);
+    */
 
     image = document.createElement('img');
-    const eyeTexture = eyeTextures[Math.floor(Math.random() * eyeTextures.length)];
-    console.log(eyeTexture);
-    image.src = eyeTexture;
+    image.src = "img/projector.png";
 
     // document.body.appendChild(image);
     const texture = new THREE.Texture(image);
@@ -77,6 +64,7 @@ const init = () => {
     scene.add(meshEye);
 
     // Eyelid
+    /*
     const geometryLid = new THREE.SphereGeometry(30.6, 24, 24, (Math.PI * 2) * 0.25, (Math.PI * 2) * 0.80);
     const meshLid = new THREE.Mesh(geometryLid, new THREE.MeshPhongMaterial({
         color: 0x111111,
@@ -91,6 +79,7 @@ const init = () => {
     meshLidRotated.add(meshLid);
 
     scene.add(meshLidRotated);
+     */
 };
 
 init();

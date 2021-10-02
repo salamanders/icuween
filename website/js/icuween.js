@@ -9,8 +9,8 @@ const eyeTextures = [
     'img/eye2.jpg',
     'img/eye3.jpg',
     'img/eye4.jpg',
-    'highres.jpg',
-    'scary.jpg'
+    'img/highres.jpg',
+    'img/scary.jpg'
 ];
 
 const init = () => {
